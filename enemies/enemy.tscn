@@ -1,0 +1,51 @@
+[gd_scene load_steps=10 format=3 uid="uid://ci2qjbi27kwvu"]
+
+[ext_resource type="Script" path="res://enemies/enemy.gd" id="1_e2muq"]
+[ext_resource type="Script" path="res://components/stats_component.gd" id="2_p8s8u"]
+[ext_resource type="Script" path="res://components/scale_component.gd" id="3_c3jbc"]
+[ext_resource type="Script" path="res://components/move_component.gd" id="3_uojd0"]
+[ext_resource type="Script" path="res://components/flash_component.gd" id="4_2w6so"]
+[ext_resource type="Script" path="res://components/shake_component.gd" id="6_7tdd3"]
+[ext_resource type="Script" path="res://components/hitbox_component.gd" id="7_pk5cc"]
+[ext_resource type="Script" path="res://components/hurtbox_component.gd" id="8_qguqs"]
+[ext_resource type="Script" path="res://components/hurt_component.gd" id="9_t0ruc"]
+
+[node name="Enemy" type="Node2D"]
+script = ExtResource("1_e2muq")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="StatsComponent" type="Node" parent="."]
+script = ExtResource("2_p8s8u")
+
+[node name="MoveComponent" type="Node" parent="." node_paths=PackedStringArray("actor")]
+script = ExtResource("3_uojd0")
+actor = NodePath("..")
+
+[node name="ScaleComponent" type="Node" parent="." node_paths=PackedStringArray("sprite")]
+script = ExtResource("3_c3jbc")
+sprite = NodePath("../AnimatedSprite2D")
+
+[node name="FlashComponent" type="Node" parent="." node_paths=PackedStringArray("sprite")]
+script = ExtResource("4_2w6so")
+sprite = NodePath("../AnimatedSprite2D")
+
+[node name="ShakeComponent" type="Node" parent="." node_paths=PackedStringArray("node")]
+script = ExtResource("6_7tdd3")
+node = NodePath("../AnimatedSprite2D")
+
+[node name="HurtboxComponent" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("8_qguqs")
+
+[node name="HitboxComponent" type="Area2D" parent="."]
+collision_layer = 0
+script = ExtResource("7_pk5cc")
+
+[node name="HurtComponent" type="Node" parent="." node_paths=PackedStringArray("stats_component", "hurtbox_component")]
+script = ExtResource("9_t0ruc")
+stats_component = NodePath("../StatsComponent")
+hurtbox_component = NodePath("../HurtboxComponent")
