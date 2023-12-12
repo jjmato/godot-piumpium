@@ -1,0 +1,43 @@
+[gd_scene load_steps=4 format=3 uid="uid://pgm2ymdxlng2"]
+
+[ext_resource type="Script" path="res://menus/game_over.gd" id="1_2hqmp"]
+[ext_resource type="PackedScene" uid="uid://cmwf54f3qk76" path="res://space_background.tscn" id="1_f4n3q"]
+[ext_resource type="LabelSettings" uid="uid://ki3iykuq4c0h" path="res://menus/new_label_settings.tres" id="2_1ay51"]
+
+[node name="GameOver" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2hqmp")
+
+[node name="SpaceBackground" parent="." instance=ExtResource("1_f4n3q")]
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Game Over"
+label_settings = ExtResource("2_1ay51")
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "'space' go to menu"
+horizontal_alignment = 1
+
+[node name="Label3" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "'R' restart"
+horizontal_alignment = 1
