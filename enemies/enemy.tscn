@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://ci2qjbi27kwvu"]
+[gd_scene load_steps=13 format=3 uid="uid://ci2qjbi27kwvu"]
 
 [ext_resource type="Script" path="res://enemies/enemy.gd" id="1_e2muq"]
 [ext_resource type="Script" path="res://components/stats_component.gd" id="2_p8s8u"]
@@ -9,6 +9,9 @@
 [ext_resource type="Script" path="res://components/hitbox_component.gd" id="7_pk5cc"]
 [ext_resource type="Script" path="res://components/hurtbox_component.gd" id="8_qguqs"]
 [ext_resource type="Script" path="res://components/hurt_component.gd" id="9_t0ruc"]
+[ext_resource type="Script" path="res://components/spawner_component.gd" id="10_36mp4"]
+[ext_resource type="PackedScene" uid="uid://c0yadb3gox1e8" path="res://effects/explosion_effect.tscn" id="11_78rir"]
+[ext_resource type="Script" path="res://components/destroyed_component.gd" id="12_d7bmg"]
 
 [node name="Enemy" type="Node2D"]
 script = ExtResource("1_e2muq")
@@ -49,3 +52,13 @@ script = ExtResource("7_pk5cc")
 script = ExtResource("9_t0ruc")
 stats_component = NodePath("../StatsComponent")
 hurtbox_component = NodePath("../HurtboxComponent")
+
+[node name="SpawnerComponent" type="Node2D" parent="."]
+script = ExtResource("10_36mp4")
+scene = ExtResource("11_78rir")
+
+[node name="DestroyedComponent" type="Node" parent="." node_paths=PackedStringArray("actor", "stats_component", "destroy_effect_spawner_component")]
+script = ExtResource("12_d7bmg")
+actor = NodePath("..")
+stats_component = NodePath("../StatsComponent")
+destroy_effect_spawner_component = NodePath("../SpawnerComponent")
