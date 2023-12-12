@@ -8,6 +8,7 @@ extends Node2D
 @onready var shake_component = $ShakeComponent as ShakeComponent
 @onready var hitbox_component = $HitboxComponent as HitboxComponent
 @onready var hurtbox_component = $HurtboxComponent as HurtboxComponent
+@onready var score_component = $ScoreComponent as ScoreComponent
 
 func _ready() -> void:
 	visible_on_screen_notifier_2d.screen_exited.connect(queue_free)
@@ -18,6 +19,9 @@ func _ready() -> void:
 		flash_component.flash()
 	)
 	
-	stats_component.no_health.connect(queue_free)
+	stats_component.no_health.connect(func():
+		score_component.adjust_score()
+		queue_free()	
+	)
 	
 	hitbox_component.hit_hurtbox.connect(queue_free.unbind(1))
